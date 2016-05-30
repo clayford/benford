@@ -1,4 +1,6 @@
+library(ggplot2)
 compareBenford <- function(d){
+  if(!is.numeric(d)) stop("data not numeric")
   digits <- d[!is.na(d)]
   digits <- substr(stringr::str_extract(as.character(abs(digits)), pattern = "[^0\\.]"),1,1)
   digits <- factor(digits, levels = 1:9) # ensure all digits represented
@@ -10,3 +12,7 @@ compareBenford <- function(d){
   ggplot(dat2L, aes(x=Digit, y=Frequency, fill=Type)) +
     geom_bar(stat = "identity", position = "dodge")
 }
+
+# Test:
+compareBenford(iris$Sepal.Length)
+compareBenford(iris$Species) # error
